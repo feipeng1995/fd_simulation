@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<launch>
+  <env name="ROSCONSOLE_CONFIG_FILE" value="$(find robotx_gazebo)/config/custom_rosconsole.conf"/>
+  <arg name="world" default="sandisland.world" />
+  <arg name="name" default="WAMV" />
+  <arg name="imu" default="true" />
+  <arg name="gps" default="true" />
+  <arg name="p3d" default="true" />
+
+  <arg name="microstrain" default="false" />
+  <param name="use_sim_time" value="true" />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find robotx_gazebo)/worlds/$(arg world)"/>
+    <arg name="verbose" value="true"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+  </include>
+  <include file="$(find robotx_gazebo)/launch/multi_usv.launch"/>
+
+  <include ns="drone1" file="$(find launcher)/presets/demo/launch/swarm_one_drone.launch">
+      <arg name="fcu_url" value="udp://:15016@127.0.0.1:15011" />
+      <arg name="model_name" value="iris_1" />
+      <arg name="rcS" value="$(find launcher)/tmp/posix/1/rcS" />
+　　　　<arg name="FlightScriptPath" value="$(find launcher)/presets/demo/flight_scripts/drone1.json" />
+  </include>
+
+  <include ns="drone2" file="$(find launcher)/presets/demo/launch/swarm_one_drone.launch">
+      <arg name="fcu_url" value="udp://:15026@127.0.0.1:15021" />
+      <arg name="model_name" value="iris_2" />
+      <arg name="rcS" value="$(find launcher)/tmp/posix/2/rcS" />
+	    <arg name="FlightScriptPath" value="$(find launcher)/presets/demo/flight_scripts/drone2.json" />
+  </include>
+
+  <include ns="drone3" file="$(find launcher)/presets/demo/launch/swarm_one_drone.launch">
+      <arg name="fcu_url" value="udp://:15036@127.0.0.1:15031" />
+      <arg name="model_name" value="iris_3" />
+      <arg name="rcS" value="$(find launcher)/tmp/posix/3/rcS" />
+	    <arg name="FlightScriptPath" value="$(find launcher)/presets/demo/flight_scripts/drone3.json" />
+  </include>
+
+  <include ns="drone4" file="$(find launcher)/presets/demo/launch/swarm_one_drone.launch">
+      <arg name="fcu_url" value="udp://:15046@127.0.0.1:15041" />
+      <arg name="model_name" value="iris_4" />
+      <arg name="rcS" value="$(find launcher)/tmp/posix/4/rcS" />
+	    <arg name="FlightScriptPath" value="$(find launcher)/presets/demo/flight_scripts/drone4.json" />
+  </include>
+</launch>

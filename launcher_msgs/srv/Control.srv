@@ -1,0 +1,5 @@
+#support init, start, pause, resume, stop, restart operation.
+
+string Operation
+---
+bool success

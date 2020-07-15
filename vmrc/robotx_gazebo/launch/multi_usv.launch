@@ -1,0 +1,39 @@
+<launch>
+    <!-- Load robot model -->
+  <arg name="urdf" default="$(find wamv_description)/urdf/wamv_robotx.xacro"/>
+  <!--<arg name="urdf" default="$(find nps_robotx)/urdf/nps_wamv.xacro"/> -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg urdf)"/>
+  <!-- begin usv1 -->
+  <group ns="usv1">
+    <param name="tf_prefix" value="usv1_tf"/>
+    <include file="$(find robotx_gazebo)/launch/sigle_usv.launch" >
+      <arg name="init_state" value="-x 100 -y 0 -z 0 -R 0 -P 0 -Y 1.57"/>
+      <arg name="usv_name" value="usv1"/>
+    </include>
+    <node pkg="robotx_gazebo" type="usv1_moving.py" name="usv1_speed">
+      <!--<remap from="cmd_vel" to="/usv1/cmd_vel"/> -->
+    </node>
+  </group>
+  <!-- begin usv2 -->
+  <group ns="usv2">
+    <param name="tf_prefix" value="usv2_tf"/>
+    <include file="$(find robotx_gazebo)/launch/sigle_usv.launch" >
+      <arg name="init_state" value="-x 90 -y -10 -z 0 -R 0 -P 0 -Y 1.57"/>
+      <arg name="usv_name" value="usv2"/>
+    </include>
+    <node pkg="robotx_gazebo" type="usv2_moving.py" name="usv2_speed">
+      <!--<remap from="cmd_vel" to="/usv1/cmd_vel"/> -->
+    </node>
+  </group>
+  <!-- begin usv3 -->
+  <group ns="usv3">
+    <param name="tf_prefix" value="usv3_tf"/>
+    <include file="$(find robotx_gazebo)/launch/sigle_usv.launch" >
+      <arg name="init_state" value="-x 110 -y -10 -z 0 -R 0 -P 0 -Y 1.57"/>
+      <arg name="usv_name" value="usv3"/>
+    </include>
+    <node pkg="robotx_gazebo" type="usv3_moving.py" name="usv3_speed">
+      <!--<remap from="cmd_vel" to="/usv1/cmd_vel"/> -->
+    </node>
+  </group>
+</launch>

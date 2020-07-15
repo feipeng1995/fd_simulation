@@ -1,0 +1,5 @@
+#get current state
+
+---
+string currentState
+bool success

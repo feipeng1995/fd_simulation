@@ -1,0 +1,20 @@
+<launch>
+  <!-- Spawn model in Gazebo usv1-->
+  <arg name="usv_name"/>
+  <arg name="init_state"/>
+  <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" args="$(arg init_state) -urdf -param /robot_description -model $(arg usv_name)"/>
+  <node pkg="robotx_gazebo" type="quat2rpy.py" name="quat2rpy" output="screen">
+      <remap from="in_topic" to="/gazebo/model_states" />
+      <remap from="out_topic" to="wamv_rpy" />
+      <param name="input_msg_type" value="ModelStates" />
+      <param name="modelstates_index" value="6" type="int" />
+  </node>
+  <!-- transform the speed to drive-->
+  <node pkg="robotx_gazebo" type="twist2drive_keyboard.py" name="twist2drive">
+  </node>
+  <!-- publish the speed of usv-->
+  
+  <!--<node pkg="robotx_gazebo" type="usv1_moving.py" name="usv_speed">
+  </node> -->
+  <!--include file="$(find wamv_description)/launch/start_base_odom_publisher.launch"/-->
+</launch>
