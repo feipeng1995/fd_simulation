@@ -5,7 +5,7 @@ mkdir -p /home/puffet/tutorial_ws/src
 cd /home/puffet/tutorial_ws/
 catkin_make
 #copy files
-
+对于无人艇仿真,只需要下载最后四个文件夹:
 #install depen
 rosdep install --from-paths /home/puffet/tutorial_ws --ignore-src --rosdistro=kinetic
 catkin_make
